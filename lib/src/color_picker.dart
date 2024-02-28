@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Future<Color?> showColorPicker({
   required BuildContext context,
@@ -38,15 +39,31 @@ Future<Color?> showColorPicker({
                           //DropdownMenu(dropdownMenuEntries: dropdownMenuEntries),
                           TextField(
                             controller: redController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ), // R
                           TextField(
                             controller: greenController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ), // G
                           TextField(
                             controller: blueController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ), // B
                           TextField(
                             controller: opacityController,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ), // O
                         ],
                       ),
