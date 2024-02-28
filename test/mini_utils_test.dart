@@ -1,5 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mini_utils/mini_utils.dart';
+import 'color_picker_test.dart';
 
-void main() {}
+void main() {
+  testWidgets("Color Picker Test", (widgetTester) async {
+    await widgetTester.pumpWidget(ColorPickerTest());
+    await widgetTester.tap(find.text("Press"));
+    await widgetTester.pump();
+    await widgetTester.tap(find.text("Cancel"));
+    expect(find.text("Press"), findsOneWidget);
+    expect(find.text("Cancel"), findsOneWidget);
+  });
+}
