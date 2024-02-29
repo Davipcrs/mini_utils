@@ -18,8 +18,9 @@ A Flutter Package with reusable Widgets and Functions.
 ## Features
 
 Widgets:
--DateTimePicker
--ColorPicker
+
+- DateTimePicker
+- ColorPicker
 
 ## Getting started
 
