@@ -22,9 +22,10 @@ Widgets:
 -ColorPicker
 
 Functions:
--DateFormatter
--TimeFormatter
--Basic String Consts
+
+- DateFormatter
+- TimeFormatter
+- Basic String Consts
 
 ## Getting started
 
@@ -42,5 +43,6 @@ DateTime? date = showDateTimePicker(BuildContext context);
 ## Next Steps
 
 Implementations:
--Implement String Consts Basic Translation  
--Implement DateTime basic utils  
+
+- Implement String Consts Basic Translation  
+- Implement DateTime basic utils  
