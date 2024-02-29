@@ -21,12 +21,6 @@ Widgets:
 -DateTimePicker
 -ColorPicker
 
-Functions:
-
-- DateFormatter
-- TimeFormatter
-- Basic String Consts
-
 ## Getting started
 
 Import the package in the pubspec.yaml
@@ -41,6 +35,8 @@ DateTime? date = showDateTimePicker(BuildContext context);
 ```
 
 ## Next Steps
+
+Publish the package in the pub.dev  
 
 Implementations:
 
