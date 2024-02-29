@@ -19,8 +19,9 @@ A Flutter Package with reusable Widgets and Functions.
 
 Widgets:
 
-- DateTimePicker
-- ColorPicker
+- dateTimePicker
+- colorPicker
+- loginScreen
 
 ## Getting started
 
@@ -34,12 +35,3 @@ Show Widgets:
 Color? color = showColorPicker(BuildContext context);
 DateTime? date = showDateTimePicker(BuildContext context);
 ```
-
-## Next Steps
-
-Publish the package in the pub.dev  
-
-Implementations:
-
-- Implement String Consts Basic Translation  
-- Implement DateTime basic utils  
