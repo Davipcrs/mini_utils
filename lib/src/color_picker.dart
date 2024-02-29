@@ -18,37 +18,53 @@ Future<Color?> showColorPicker({
   greenController.text = green.toString();
   blueController.text = blue.toString();
   opacityController.text = opacity.toString();
+  bool canceled = false;
 
   await showAdaptiveDialog(
     context: context,
     builder: (context) {
       return StatefulBuilder(builder: (context, state) {
         return Dialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.60,
-              height: MediaQuery.of(context).size.height * 0.60,
-              child: Scaffold(
-                body: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          height: MediaQuery.of(context).size.height * 0.60,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Theme.of(context).colorScheme.background,
+              ),
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        height: MediaQuery.of(context).size.height * 0.50,
+                        child: Center(
                           child: Container(
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            height: MediaQuery.of(context).size.height * 0.25,
                             decoration: BoxDecoration(color: selectedColor),
                           ),
                         ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          height: MediaQuery.of(context).size.height * 0.60,
-                          child: Column(
-                            children: [
-                              //DropdownMenu(dropdownMenuEntries: dropdownMenuEntries),
-                              TextField(
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        height: MediaQuery.of(context).size.height * 0.50,
+                        child: Column(
+                          children: [
+                            //DropdownMenu(dropdownMenuEntries: dropdownMenuEntries),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 8.0, top: 12),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: "Red (0-255)",
+                                    labelText: "Red (0-255)"),
                                 controller: redController,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
@@ -57,14 +73,24 @@ Future<Color?> showColorPicker({
                                 onEditingComplete: () {
                                   state(
                                     () {
+                                      if (redController.text == "") {
+                                        return;
+                                      }
                                       red = int.parse(redController.text);
                                       selectedColor = Color.fromARGB(
                                           opacity, red, green, blue);
                                     },
                                   );
                                 },
-                              ), // R
-                              TextField(
+                              ),
+                            ), // R
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: "Green (0-255)",
+                                    labelText: "Green (0-255)"),
                                 controller: greenController,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
@@ -73,14 +99,24 @@ Future<Color?> showColorPicker({
                                 onEditingComplete: () {
                                   state(
                                     () {
-                                      green = int.parse(redController.text);
+                                      if (greenController.text == "") {
+                                        return;
+                                      }
+                                      green = int.parse(greenController.text);
                                       selectedColor = Color.fromARGB(
                                           opacity, red, green, blue);
                                     },
                                   );
                                 },
-                              ), // G
-                              TextField(
+                              ),
+                            ), // G
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: "Blue (0-255)",
+                                    labelText: "Blue (0-255)"),
                                 controller: blueController,
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
@@ -89,58 +125,69 @@ Future<Color?> showColorPicker({
                                 onEditingComplete: () {
                                   state(
                                     () {
-                                      blue = int.parse(redController.text);
+                                      if (blueController.text == "") {
+                                        return;
+                                      }
+                                      blue = int.parse(blueController.text);
                                       selectedColor = Color.fromARGB(
                                           opacity, red, green, blue);
                                     },
                                   );
                                 },
-                              ), // B
-                              TextField(
-                                controller: opacityController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                onEditingComplete: () {
-                                  state(
-                                    () {
-                                      opacity = int.parse(redController.text);
-                                      selectedColor = Color.fromARGB(
-                                          opacity, red, green, blue);
-                                    },
-                                  );
-                                },
-                              ), // O
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            Navigator.of(context).pop();
-                            selectedColor = null;
-                            return;
-                          },
-                          child: Text("Cancel"),
+                              ),
+                            ), // B
+                            TextField(
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: "Opacity (0-255)",
+                                  labelText: "Opacity (0-255)"),
+                              controller: opacityController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              onEditingComplete: () {
+                                state(
+                                  () {
+                                    if (opacityController.text == "") {
+                                      return;
+                                    }
+                                    opacity = int.parse(opacityController.text);
+                                    selectedColor = Color.fromARGB(
+                                        opacity, red, green, blue);
+                                  },
+                                );
+                              },
+                            ), // O
+                          ],
                         ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            selectedColor =
-                                Color.fromARGB(opacity, red, green, blue);
-                            Navigator.of(context).pop();
-                            return;
-                          },
-                          child: Text("Confirm"),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                          selectedColor = null;
+                          canceled = true;
+                          return;
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          selectedColor =
+                              Color.fromARGB(opacity, red, green, blue);
+                          Navigator.of(context).pop();
+                          return;
+                        },
+                        child: const Text("Confirm"),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
@@ -148,5 +195,8 @@ Future<Color?> showColorPicker({
       });
     },
   );
+  if (canceled) {
+    return null;
+  }
   return selectedColor;
 }
