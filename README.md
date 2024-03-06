@@ -22,6 +22,7 @@ Widgets:
 - dateTimePicker
 - colorPicker
 - loginScreen
+- digitalClock
 
 ## Getting started
 

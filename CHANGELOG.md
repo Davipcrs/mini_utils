@@ -13,3 +13,9 @@ Init Project:
 - Creation of the login_screen Widget Util  
 - Update of the Readme.  
 - Created the file of the digital_clock widget
+
+## VERSION: 0.0.3
+
+- Implementation of the digitalClock widget
+- Corrected API Export error
+- Corrected README errors
