@@ -22,7 +22,11 @@ Widgets:
 - dateTimePicker
 - colorPicker
 - loginScreen
-- digitalClock
+- digitalClock  
+
+Functions:  
+
+- checkIfMobile  
 
 ## Getting started
 

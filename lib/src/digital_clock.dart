@@ -24,6 +24,9 @@ Widget digitalClock({required BuildContext context, TextStyle? style}) {
 
       correctTime();
       resetTime() {
+        if (TimeOfDay.now() == time) {
+          return;
+        }
         setState(
           () {
             time = TimeOfDay.now();
@@ -32,7 +35,7 @@ Widget digitalClock({required BuildContext context, TextStyle? style}) {
         );
       }
 
-      Timer.periodic(const Duration(milliseconds: 800), (timer) {
+      Timer.periodic(const Duration(milliseconds: 50), (timer) {
         resetTime();
       });
       return Text(

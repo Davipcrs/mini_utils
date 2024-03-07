@@ -19,3 +19,8 @@ Init Project:
 - Implementation of the digitalClock widget
 - Corrected API Export error
 - Corrected README errors
+
+## VERSION: 0.0.4
+
+- Implementation of the checkIfMobile Function  
+- Changing the refresh time of the digitalClock  
