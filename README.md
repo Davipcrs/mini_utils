@@ -40,3 +40,7 @@ Show Widgets:
 Color? color = showColorPicker(BuildContext context);
 DateTime? date = showDateTimePicker(BuildContext context);
 ```
+
+## Next Features
+
+- Automatic responsive Scaffold
