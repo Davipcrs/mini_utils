@@ -24,3 +24,9 @@ Init Project:
 
 - Implementation of the checkIfMobile Function  
 - Changing the refresh time of the digitalClock  
+
+## VERSION: 0.0.5-r1
+
+- Removing the responsive widgets  
+- Creation of the Draggable Container Widget
+- Update in the Color names for the Themes  

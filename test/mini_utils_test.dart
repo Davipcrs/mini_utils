@@ -4,7 +4,7 @@ import 'color_picker_test.dart';
 
 void main() {
   testWidgets("Color Picker Test", (widgetTester) async {
-    await widgetTester.pumpWidget(ColorPickerTest());
+    await widgetTester.pumpWidget(const ColorPickerTest());
     await widgetTester.tap(find.text("Press"));
     await widgetTester.pump();
     await widgetTester.tap(find.text("Cancel"));

@@ -1,6 +1,6 @@
 name: mini_utils
 description: "Flutter mini Widgets and Utils Package"
-version: 0.0.4
+version: 0.0.5-r1
 homepage: https://github.com/Davipcrs/mini_utils
 
 environment:

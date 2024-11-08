@@ -25,13 +25,13 @@ Future<Color?> showColorPicker({
     builder: (context) {
       return StatefulBuilder(builder: (context, state) {
         return Dialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
               ),
               width: MediaQuery.of(context).size.width * 0.6,
               height: MediaQuery.of(context).size.height * 0.6,

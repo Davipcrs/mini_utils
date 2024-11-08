@@ -12,8 +12,8 @@ Widget loginScreen({
   Color? buttonBackgroundColor,
   Color? buttonForegroundColor,
 }) {
-  backgroundColor ??= Theme.of(context).colorScheme.onBackground;
-  foregroundColor ??= Theme.of(context).colorScheme.background;
+  backgroundColor ??= Theme.of(context).colorScheme.onSurface;
+  foregroundColor ??= Theme.of(context).colorScheme.surface;
   buttonBackgroundColor ??= Theme.of(context).colorScheme.primary;
   buttonForegroundColor ??= Theme.of(context).colorScheme.onPrimary;
   return Scaffold(
@@ -75,7 +75,7 @@ Widget loginScreen({
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
+                      backgroundColor: WidgetStateColor.resolveWith(
                           (states) => buttonBackgroundColor as Color),
                     ),
                     onPressed: () {
@@ -88,7 +88,7 @@ Widget loginScreen({
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
+                      backgroundColor: WidgetStateColor.resolveWith(
                           (states) => buttonBackgroundColor as Color),
                     ),
                     onPressed: () {
