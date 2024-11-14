@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
+// @DOCSTART
 class DraggableContainer extends StatefulWidget {
+  /// This class is a Draggable custom container.
+  /// Need to be in a Stack because the use of the Positioned Widget
+  // @DOCEND
   final Offset initPosition;
   final Widget childWidget;
   final bool lockVariable;
+  final VoidCallback? onMove;
 
   const DraggableContainer({
     super.key,
     required this.initPosition,
     required this.childWidget,
     required this.lockVariable,
+    this.onMove,
   });
 
   @override
@@ -35,6 +41,7 @@ class _DraggableContainerState extends State<DraggableContainer> {
             setState(
               () {
                 position = position + details.delta;
+                widget.onMove;
               },
             );
           }

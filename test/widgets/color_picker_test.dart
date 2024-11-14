@@ -8,15 +8,13 @@ class ColorPickerTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: "Test",
-      home: MyWidget(),
+      home: _ColorPickerTest(),
     );
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({
-    super.key,
-  });
+class _ColorPickerTest extends StatelessWidget {
+  const _ColorPickerTest();
 
   @override
   Widget build(BuildContext context) {

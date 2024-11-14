@@ -30,3 +30,8 @@ Init Project:
 - Removing the responsive widgets  
 - Creation of the Draggable Container Widget
 - Update in the Color names for the Themes  
+
+## VERSION: 0.0.5-r2
+
+- Tests skeleton
+- Minor changes on DraggableContainer

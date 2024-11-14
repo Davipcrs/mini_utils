@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'color_picker_test.dart';
+import 'widgets/color_picker_test.dart';
 
 void main() {
   testWidgets("Color Picker Test", (widgetTester) async {
