@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+typedef void OffsetCallback(Offset val);
+
 // @DOCSTART
 class DraggableContainer extends StatefulWidget {
   /// This class is a Draggable custom container.
@@ -8,14 +10,14 @@ class DraggableContainer extends StatefulWidget {
   final Offset initPosition;
   final Widget childWidget;
   final bool lockVariable;
-  final VoidCallback? onMove;
+  final OffsetCallback onMove;
 
   const DraggableContainer({
     super.key,
     required this.initPosition,
     required this.childWidget,
     required this.lockVariable,
-    this.onMove,
+    required this.onMove,
   });
 
   @override
@@ -41,7 +43,7 @@ class _DraggableContainerState extends State<DraggableContainer> {
             setState(
               () {
                 position = position + details.delta;
-                widget.onMove;
+                widget.onMove(position);
               },
             );
           }

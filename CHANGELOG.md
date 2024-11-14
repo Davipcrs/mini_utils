@@ -35,3 +35,7 @@ Init Project:
 
 - Tests skeleton
 - Minor changes on DraggableContainer
+
+## VERSION: 0.0.5-r3
+
+- Minor changes on DraggableContainer
