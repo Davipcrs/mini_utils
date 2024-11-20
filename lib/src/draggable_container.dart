@@ -42,7 +42,10 @@ class _DraggableContainerState extends State<DraggableContainer> {
           if (!widget.lockVariable) {
             setState(
               () {
-                position = position + details.delta;
+                if (position + details.delta < MediaQuery.sizeOf(context) &&
+                    position + details.delta > Offset.zero) {
+                  position = position + details.delta;
+                }
                 widget.onMove(position);
               },
             );

@@ -39,3 +39,7 @@ Init Project:
 ## VERSION: 0.0.5-r3
 
 - Minor changes on DraggableContainer
+
+## VERSION: 0.0.5-r4
+
+- Out-Of-Bounds Treatment in DraggableContainer
