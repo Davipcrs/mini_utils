@@ -43,3 +43,8 @@ Init Project:
 ## VERSION: 0.0.5-r4
 
 - Out-Of-Bounds Treatment in DraggableContainer
+
+## VERSION: 0.0.5
+
+- Major update containing all the minor releases
+- Change in project structure

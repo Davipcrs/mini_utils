@@ -1,7 +1,7 @@
 library mini_utils;
 
-export 'src/date_time_picker.dart' show showDateTimePicker;
-export 'src/color_picker.dart' show showColorPicker;
-export 'src/login_screen.dart' show loginScreen;
-export 'src/digital_clock.dart' show digitalClock;
-export 'src/draggable_container.dart' show DraggableContainer;
+export 'src/dialogs/date_time_picker.dart' show showDateTimePicker;
+export 'src/dialogs/color_picker.dart' show showColorPicker;
+export 'src/widgets/login_screen.dart' show loginScreen;
+export 'src/widgets/digital_clock.dart' show digitalClock;
+export 'src/widgets/draggable_container.dart' show DraggableContainer;
