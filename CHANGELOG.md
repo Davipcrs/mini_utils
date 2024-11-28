@@ -48,3 +48,8 @@ Init Project:
 
 - Major update containing all the minor releases
 - Change in project structure
+
+## VERSION: 0.0.6-r1
+
+- Updates on color_picker (OnChanged)
+- Implement LineConnectorPainter

@@ -70,6 +70,19 @@ Future<Color?> showColorPicker({
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
+                                onChanged: (value) {
+                                  state(
+                                    () {
+                                      if (redController.text == "") {
+                                        return;
+                                      }
+                                      red = int.parse(redController.text);
+                                      selectedColor = Color.fromARGB(
+                                          opacity, red, green, blue);
+                                    },
+                                  );
+                                },
+                                /*
                                 onEditingComplete: () {
                                   state(
                                     () {
@@ -82,6 +95,7 @@ Future<Color?> showColorPicker({
                                     },
                                   );
                                 },
+                                */
                               ),
                             ), // R
                             Padding(
@@ -96,6 +110,19 @@ Future<Color?> showColorPicker({
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
+                                onChanged: (value) {
+                                  state(
+                                    () {
+                                      if (greenController.text == "") {
+                                        return;
+                                      }
+                                      green = int.parse(greenController.text);
+                                      selectedColor = Color.fromARGB(
+                                          opacity, red, green, blue);
+                                    },
+                                  );
+                                },
+                                /*
                                 onEditingComplete: () {
                                   state(
                                     () {
@@ -108,20 +135,34 @@ Future<Color?> showColorPicker({
                                     },
                                   );
                                 },
+                                */
                               ),
                             ), // G
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: TextField(
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    hintText: "Blue (0-255)",
-                                    labelText: "Blue (0-255)"),
-                                controller: blueController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: "Blue (0-255)",
+                                      labelText: "Blue (0-255)"),
+                                  controller: blueController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  onChanged: (value) {
+                                    state(
+                                      () {
+                                        if (blueController.text == "") {
+                                          return;
+                                        }
+                                        blue = int.parse(blueController.text);
+                                        selectedColor = Color.fromARGB(
+                                            opacity, red, green, blue);
+                                      },
+                                    );
+                                  }
+                                  /*
                                 onEditingComplete: () {
                                   state(
                                     () {
@@ -133,8 +174,9 @@ Future<Color?> showColorPicker({
                                           opacity, red, green, blue);
                                     },
                                   );
-                                },
-                              ),
+                                }
+                                */
+                                  ),
                             ), // B
                             TextField(
                               decoration: const InputDecoration(
