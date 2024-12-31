@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef void OffsetCallback(Offset val);
+typedef OffsetCallback = void Function(Offset val);
 
 // @DOCSTART
 class DraggableContainer extends StatefulWidget {

@@ -53,3 +53,8 @@ Init Project:
 
 - Updates on color_picker (OnChanged)
 - Implement LineConnectorPainter
+
+## VERSION: 0.0.6-r2
+
+- Implement colorInverter Function
+- Implement themes
