@@ -58,3 +58,8 @@ Init Project:
 
 - Implement colorInverter Function
 - Implement themes
+
+
+## VERSION: 0.0.6-r3
+
+- Updates on LoginScreen so its more customizable
