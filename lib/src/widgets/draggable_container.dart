@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 
+/// Defines a type based on a function that recieves the Offset Value for being used
+/// as a callback on DraggableContainer
+/// This function will be used to change position of the DraggableContainer
 typedef OffsetCallback = void Function(Offset val);
 
 // @DOCSTART
+/// This class is a Draggable custom container.
+/// Need to be in a Stack because the use of the Positioned Widget
 class DraggableContainer extends StatefulWidget {
-  /// This class is a Draggable custom container.
-  /// Need to be in a Stack because the use of the Positioned Widget
   // @DOCEND
+
+  ///Init Position of the DraggableContainer
   final Offset initPosition;
+
+  ///DraggableContainer Widget Child - need for personalize the container
   final Widget childWidget;
+
+  ///This variable locks the position of the DraggableContainer
   final bool lockVariable;
+
+  ///Callback function based on the type OffsetCallback resposible for moving the
+  ///DraggableContainer
   final OffsetCallback onMove;
 
+  /// Constructor for DraggableContainer
   const DraggableContainer({
     super.key,
     required this.initPosition,

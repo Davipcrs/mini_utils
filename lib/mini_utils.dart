@@ -10,3 +10,5 @@ export 'src/widgets/line_connector_painter.dart'
 export 'src/themes/custom_theme_dark.dart' show cdevSuiteDarkTheme;
 export 'src/themes/custom_theme_light.dart' show cdevSuiteLightTheme;
 export 'src/functions/color_inverter.dart' show colorInverter;
+
+export 'src/widgets/lined_text_field.dart' show LineNumberTextField;

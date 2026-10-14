@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-// Easy loginScreen for the app with customizable functions for handle userLogin, passwordChange and loginCancel
-// Recomended usage inside a SizedBox
+/// Easy loginScreen for the app with customizable functions for handle userLogin, passwordChange and loginCancel
+/// Recomended usage inside a SizedBox
 Widget loginScreen({
   required BuildContext context,
   required Function onSubmit,
