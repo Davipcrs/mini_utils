@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mini_utils/mini_utils.dart';
 
 import '../dart_syntax_highlighter.dart';

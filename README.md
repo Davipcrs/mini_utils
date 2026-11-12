@@ -13,7 +13,7 @@ and the Flutter guide for
 
 # mini_utils
 
-A Flutter Package with reusable Widgets and Functions.
+Flutter mini Widgets and Utils Package - Contains basic Widgets, Themes, Functions and Dialogs - Using material_ui.
 
 ## Features
 
@@ -23,6 +23,23 @@ Widgets:
 - colorPicker
 - loginScreen
 - digitalClock  
+- DraggableContainer
+- LineConnectorPainter
+
+Functions:
+
+- colorInverter
+- ResponsiveLayout
+
+Components:
+
+- CdevCustomElevetadButton
+- CdevResponsiveNavigationBar
+
+Themes:
+
+- cdevSuiteDarkTheme
+- cdevSuiteLightTheme
 
 ## Getting started
 
@@ -30,7 +47,7 @@ Import the package in the pubspec.yaml
 
 ## Usage
 
-Show Widgets:  
+### Show Dialog Widgets  
 
 ```dart
 Color? color = showColorPicker(BuildContext context);

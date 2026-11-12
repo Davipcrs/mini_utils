@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mini_utils/mini_utils.dart';
 
 /// Standalone entry point: flutter run -t lib/responsive_navigation_demo.dart.

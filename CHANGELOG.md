@@ -72,3 +72,8 @@ Init Project:
 - Changes on login screen
 - Custom Buttons created
 - Custom NavigationRail thats became a Drawer on minor screens
+
+## VERSION: 1.0.1-mui
+
+- Convert usage of flutter/material.dart to material_ui/material_ui.dart
+- Readme modifications

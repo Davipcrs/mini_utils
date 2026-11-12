@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A multiline text field with a synchronized line-number gutter.
 class LineNumberTextField extends StatefulWidget {

@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../functions/responsive_layout.dart';
-import 'navigation_bar_item.dart';
+import '../helpers/navigation_bar_item.dart';
 
 /// Responsive, presentational navigation with no routing or page management.
 ///

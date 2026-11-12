@@ -26,4 +26,6 @@ export 'src/widgets/components/cdev_custom_elevated_button.dart'
     show CdevCustomElevatedButton;
 export 'src/widgets/components/cdev_responsive_navigation_bar.dart'
     show CdevResponsiveNavigationBar;
-export 'src/widgets/components/navigation_bar_item.dart' show NavigationBarItem;
+
+// Helpers
+export 'src/widgets/helpers/navigation_bar_item.dart' show NavigationBarItem;
