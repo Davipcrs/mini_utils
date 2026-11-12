@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mini_utils/src/widgets/components/cdev_custom_text_field.dart';
 
 Future<Color?> showColorPicker({
   required BuildContext context,
@@ -25,57 +26,56 @@ Future<Color?> showColorPicker({
     builder: (context) {
       return StatefulBuilder(builder: (context, state) {
         return Dialog(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.surfaceContainer,
               ),
-              width: MediaQuery.of(context).size.width * 0.6,
-              height: MediaQuery.of(context).size.height * 0.6,
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: MediaQuery.of(context).size.height * 0.285,
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        height: MediaQuery.of(context).size.height * 0.50,
-                        child: Center(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            height: MediaQuery.of(context).size.height * 0.25,
-                            decoration: BoxDecoration(color: selectedColor),
-                          ),
+                        width: MediaQuery.of(context).size.width * 0.18,
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        child: Container(
+                          // width: MediaQuery.of(context).size.width * 0.25,
+                          // height: MediaQuery.of(context).size.height * 0.125,
+                          decoration: BoxDecoration(
+                              color: selectedColor,
+                              borderRadius: BorderRadius.circular(16)),
                         ),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        height: MediaQuery.of(context).size.height * 0.50,
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         child: Column(
                           children: [
                             //DropdownMenu(dropdownMenuEntries: dropdownMenuEntries),
                             Padding(
                               padding:
                                   const EdgeInsets.only(bottom: 8.0, top: 12),
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    hintText: "Red (0-255)",
-                                    labelText: "Red (0-255)"),
-                                controller: redController,
-                                keyboardType: TextInputType.number,
+                              child: CdevCustomTextField(
+                                hintText: "Red (0-255)",
+                                labelText: "Red (0-255)",
+                                textEditingController: redController,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
+                                keyboardType: TextInputType.number,
                                 onChanged: (value) {
                                   state(
                                     () {
                                       if (redController.text == "") {
                                         return;
                                       }
+
                                       red = int.parse(redController.text);
                                       selectedColor = Color.fromARGB(
                                           opacity, red, green, blue);
@@ -208,24 +208,31 @@ Future<Color?> showColorPicker({
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          selectedColor = null;
-                          canceled = true;
-                          return;
-                        },
-                        child: const Text("Cancel"),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: TextButton(
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                            selectedColor = null;
+                            canceled = true;
+                            return;
+                          },
+                          child: const Text("Cancel"),
+                        ),
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          selectedColor =
-                              Color.fromARGB(opacity, red, green, blue);
-                          Navigator.of(context).pop();
-                          return;
-                        },
-                        child: const Text("Confirm"),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 24.0),
+                        child: TextButton(
+                          onPressed: () async {
+                            selectedColor =
+                                Color.fromARGB(opacity, red, green, blue);
+                            Navigator.of(context).pop();
+                            return;
+                          },
+                          child: const Text("OK"),
+                        ),
                       ),
                     ],
                   ),

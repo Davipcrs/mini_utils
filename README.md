@@ -36,3 +36,53 @@ Show Widgets:
 Color? color = showColorPicker(BuildContext context);
 DateTime? date = showDateTimePicker(BuildContext context);
 ```
+
+### CdevCustomButton
+
+Import `package:mini_utils/mini_utils.dart` and use the shared elevated button:
+
+```dart
+CdevCustomButton(
+  onPressed: () { /* Save changes. */ },
+  child: const Text('Save'),
+)
+```
+
+Pass `onPressed: null` to disable it. Suite defaults provide a 48-pixel minimum
+height, rounded corners, and consistent padding. Colors follow the current theme,
+including the cdev light and dark themes. Customize all buttons in an app through
+`ThemeData.elevatedButtonTheme`, or pass a `ButtonStyle` to one button's `style`.
+App theme styles override suite defaults; individual styles override both.
+
+### LineNumberTextField syntax highlighting
+
+See the [syntax highlighting guide](docs/syntax_highlighter.md) for a complete
+example, callback requirements, controller behavior, and theme integration.
+
+Use the optional `syntaxHighlighter` callback to style the editable text:
+
+```dart
+LineNumberTextField(
+  controller: controller,
+  syntaxHighlighter: (text, style) {
+    final spans = <TextSpan>[];
+    var offset = 0;
+    for (final match in RegExp(r'\b(final|const|var)\b').allMatches(text)) {
+      spans.add(TextSpan(text: text.substring(offset, match.start)));
+      spans.add(TextSpan(
+        text: match[0],
+        style: const TextStyle(color: Colors.purple),
+      ));
+      offset = match.end;
+    }
+    spans.add(TextSpan(text: text.substring(offset)));
+    return TextSpan(style: style, children: spans);
+  },
+)
+```
+
+Return a `TextSpan` tree containing exactly the original text. You can use
+language-specific tokenizers to give individual tokens different colors. Prefer
+color-only changes to preserve alignment with line numbers. Highlighting is
+suspended during input-method composition so the composing underline is retained.
+Omit the callback for normal text rendering.

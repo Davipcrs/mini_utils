@@ -4,6 +4,62 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mini_utils/mini_utils.dart';
 
 void main() {
+  testWidgets('Cdev button demo responds to taps', (tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.ensureVisible(find.text('Try cdev button'));
+    await tester.tap(find.text('Try cdev button'));
+    await tester.pump();
+    expect(find.text('Cdev button pressed'), findsOneWidget);
+    final disabled = tester.widget<CdevCustomElevatedButton>(
+      find.widgetWithText(CdevCustomElevatedButton, 'Disabled'),
+    );
+    expect(disabled.onPressed, isNull);
+  });
+
+  testWidgets('Editor toggles highlighting without losing edits', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.scrollUntilVisible(find.byType(LineNumberTextField), 200);
+    final field = find.descendant(
+      of: find.byType(LineNumberTextField),
+      matching: find.byType(TextField),
+    );
+    const sample = 'final count = 42; // example\n';
+    await tester.enterText(field, sample);
+    await tester.pump();
+    final editor = tester.widget<LineNumberTextField>(
+      find.byType(LineNumberTextField),
+    );
+    expect(editor.controller!.text, sample);
+    final span = editor.syntaxHighlighter!(sample, editor.style!);
+    expect(span.toPlainText(), sample);
+    expect(span.children!.where((span) => span.style?.color != null).length, 3);
+    await Scrollable.ensureVisible(
+      tester.element(find.text('Syntax highlighting')),
+      alignment: 0.5,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Syntax highlighting'));
+    await tester.pump();
+    expect(
+      tester
+          .widget<LineNumberTextField>(find.byType(LineNumberTextField))
+          .syntaxHighlighter,
+      isNull,
+    );
+    expect(editor.controller!.text, sample);
+    await tester.tap(find.text('Syntax highlighting'));
+    await tester.pump();
+    expect(
+      tester
+          .widget<LineNumberTextField>(find.byType(LineNumberTextField))
+          .syntaxHighlighter,
+      isNotNull,
+    );
+    expect(editor.controller!.text, sample);
+  });
+
   testWidgets('Gallery changes themes and preserves edited text', (
     tester,
   ) async {
@@ -28,6 +84,8 @@ void main() {
   ) async {
     await tester.pumpWidget(const MyApp());
     await tester.scrollUntilVisible(find.text('Choose date & time'), 150);
+    await tester.ensureVisible(find.text('Choose date & time'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Choose date & time'));
     await tester.pumpAndSettle();
     expect(find.byType(DatePickerDialog), findsOneWidget);
@@ -45,6 +103,8 @@ void main() {
       300,
       scrollable: find.byType(Scrollable).first,
     );
+    await tester.ensureVisible(find.text('Open login demo'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Open login demo'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Enter'));

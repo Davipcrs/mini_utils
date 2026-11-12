@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mini_utils/mini_utils.dart';
 
+import '../dart_syntax_highlighter.dart';
+import '../responsive_navigation_demo.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.dark, required this.onThemeChanged});
 
@@ -16,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   DateTime? _date;
   Offset _position = const Offset(24, 32);
   bool _locked = false;
+  bool _highlightSyntax = true;
   final _editor = TextEditingController(
     text: '// Try editing this text.\nimport \'package:mini_utils/mini_utils.dart\';\n\nvoid main() {\n  // Small utilities, reusable widgets.\n}',
   );
@@ -60,10 +64,16 @@ class _HomePageState extends State<HomePage> {
     appBar: AppBar(
       title: const Text('Mini Utils Gallery'),
       actions: [
-        IconButton(
-          tooltip: widget.dark ? 'Use light theme' : 'Use dark theme',
-          onPressed: widget.onThemeChanged,
-          icon: Icon(widget.dark ? Icons.light_mode : Icons.dark_mode),
+        Tooltip(
+          message: widget.dark ? 'Use light theme' : 'Use dark theme',
+          child: CdevCustomElevatedButton(
+            onPressed: widget.onThemeChanged,
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(48, 48),
+              padding: EdgeInsets.zero,
+            ),
+            child: Icon(widget.dark ? Icons.light_mode : Icons.dark_mode),
+          ),
         ),
       ],
     ),
@@ -79,6 +89,58 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20),
               _section(
+                'Responsive navigation',
+                'Try the desktop sidebar, tablet rail and mobile drawer.',
+                FilledButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => ResponsiveNavigationDemo(
+                        onThemeChanged: widget.onThemeChanged,
+                      ),
+                    ),
+                  ),
+                  child: const Text('Open navigation demo'),
+                ),
+              ),
+              _section(
+                'Cdev custom button',
+                'Shared button styling that follows the current light or dark theme.',
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    CdevCustomElevatedButton(
+                      onPressed: () => ScaffoldMessenger.of(context)
+                          .showSnackBar(
+                            const SnackBar(
+                              content: Text('Cdev button pressed'),
+                            ),
+                          ),
+                      child: const Text('Try cdev button'),
+                    ),
+                    const CdevCustomElevatedButton(
+                      onPressed: null,
+                      child: Text('Disabled'),
+                    ),
+                    CdevCustomElevatedButton(
+                      onPressed: () => ScaffoldMessenger.of(context)
+                          .showSnackBar(
+                            const SnackBar(
+                              content: Text('Custom button pressed'),
+                            ),
+                          ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor: Theme.of(context)
+                            .colorScheme
+                            .onPrimary,
+                      ),
+                      child: const Text('Custom colors'),
+                    ),
+                  ],
+                ),
+              ),
+              _section(
                 'Color picker & inverter',
                 'Choose an RGBA color and compare it with its inverse.',
                 Column(
@@ -93,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    FilledButton(
+                    CdevCustomElevatedButton(
                       onPressed: _pickColor,
                       child: const Text('Choose color'),
                     ),
@@ -112,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                           : '${MaterialLocalizations.of(context).formatMediumDate(_date!)} · ${TimeOfDay.fromDateTime(_date!).format(context)}',
                     ),
                     const SizedBox(height: 12),
-                    FilledButton(
+                    CdevCustomElevatedButton(
                       onPressed: _pickDate,
                       child: const Text('Choose date & time'),
                     ),
@@ -121,10 +183,36 @@ class _HomePageState extends State<HomePage> {
               ),
               _section(
                 'Line-numbered editor',
-                'Add new lines to see the gutter update.',
-                SizedBox(
-                  height: 220,
-                  child: LineNumberTextField(controller: _editor),
+                'Edit the Dart sample or add lines to see syntax colors and line numbers update.',
+                Column(
+                  children: [
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Syntax highlighting'),
+                      value: _highlightSyntax,
+                      onChanged: (value) =>
+                          setState(() => _highlightSyntax = value),
+                    ),
+                    SizedBox(
+                      height: 220,
+                      child: LineNumberTextField(
+                        controller: _editor,
+                        style: TextStyle(
+                          //fontFamily: 'monospace',
+                          fontSize: 15,
+                          height: 1.5,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        syntaxHighlighter: _highlightSyntax
+                            ? (text, style) => highlightDart(
+                                text,
+                                style,
+                                Theme.of(context).colorScheme,
+                              )
+                            : null,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               _section(
@@ -191,7 +279,7 @@ class _HomePageState extends State<HomePage> {
               _section(
                 'Login screen',
                 'A sample form with local feedback for each action. No credentials are sent.',
-                FilledButton(
+                CdevCustomElevatedButton(
                   onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(builder: (_) => const _LoginDemo()),
                   ),
@@ -201,7 +289,7 @@ class _HomePageState extends State<HomePage> {
               _section(
                 'Digital clock',
                 'Display the current local time in hours and minutes.',
-                FilledButton(
+                CdevCustomElevatedButton(
                   onPressed: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(
                       builder: (context) => Scaffold(

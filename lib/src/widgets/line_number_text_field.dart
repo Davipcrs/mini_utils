@@ -1,45 +1,55 @@
 import 'package:flutter/material.dart';
 
+/// A multiline text field with a synchronized line-number gutter.
 class LineNumberTextField extends StatefulWidget {
+  /// Creates a text field with optional syntax highlighting.
   const LineNumberTextField({
     super.key,
     this.controller,
     this.style,
     this.decoration,
     this.onChanged,
+    this.syntaxHighlighter,
   });
 
+  /// The caller-owned controller for editing and retrieving text.
   final TextEditingController? controller;
+  /// The base style for text and line numbers.
   final TextStyle? style;
+  /// The decoration applied to the editable field.
   final InputDecoration? decoration;
+  /// Called once when the user changes the text.
   final ValueChanged<String>? onChanged;
+
+  /// Builds styled spans for the current text. The returned span must contain
+  /// exactly the input text, without adding or removing characters. Prefer color-only
+  /// styles to keep the text aligned with the line numbers.
+  ///
+  /// Highlighting is temporarily suspended while an input method composes text.
+  final TextSpan Function(String text, TextStyle style)? syntaxHighlighter;
 
   @override
   State<LineNumberTextField> createState() => _LineNumberTextFieldState();
 }
 
 class _LineNumberTextFieldState extends State<LineNumberTextField> {
-  late final TextEditingController _textController;
+  late _HighlightingController _textController;
   late final ScrollController _textScrollController;
   late final ScrollController _lineScrollController;
 
-  bool _ownsTextController = false;
-
   int _lineCount = 1;
 
-  static const double _fontSize = 14;
+  static const double _fontSize = 15;
   static const double _lineHeight = 1.5;
 
   @override
   void initState() {
     super.initState();
 
-    if (widget.controller != null) {
-      _textController = widget.controller!;
-    } else {
-      _textController = TextEditingController();
-      _ownsTextController = true;
-    }
+    _textController = _HighlightingController(
+      source: widget.controller,
+      highlighter: widget.syntaxHighlighter,
+    );
 
     _textScrollController = ScrollController();
     _lineScrollController = ScrollController();
@@ -50,9 +60,27 @@ class _LineNumberTextFieldState extends State<LineNumberTextField> {
     _updateLineCount();
   }
 
+  @override
+  void didUpdateWidget(covariant LineNumberTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.controller != widget.controller) {
+      final previousValue = _textController.value;
+      _textController.removeListener(_onTextChanged);
+      _textController.dispose();
+      _textController = _HighlightingController(
+        source: widget.controller,
+        highlighter: widget.syntaxHighlighter,
+        initialValue: previousValue,
+      );
+      _textController.addListener(_onTextChanged);
+      _lineCount = '\n'.allMatches(_textController.text).length + 1;
+    } else {
+      _textController.highlighter = widget.syntaxHighlighter;
+    }
+  }
+
   void _onTextChanged() {
     _updateLineCount();
-    widget.onChanged?.call(_textController.text);
   }
 
   void _updateLineCount() {
@@ -89,9 +117,7 @@ class _LineNumberTextFieldState extends State<LineNumberTextField> {
     _textScrollController.dispose();
     _lineScrollController.dispose();
 
-    if (_ownsTextController) {
-      _textController.dispose();
-    }
+    _textController.dispose();
 
     super.dispose();
   }
@@ -100,7 +126,7 @@ class _LineNumberTextFieldState extends State<LineNumberTextField> {
   Widget build(BuildContext context) {
     final textStyle = widget.style ??
         const TextStyle(
-          fontFamily: 'monospace',
+          fontFamily: 'RobotoMono',
           fontSize: _fontSize,
           height: _lineHeight,
         );
@@ -183,5 +209,56 @@ class _LineNumberTextFieldState extends State<LineNumberTextField> {
         ),
       ),
     );
+  }
+}
+
+/// Keeps the caller's controller in sync without taking ownership of it.
+class _HighlightingController extends TextEditingController {
+  _HighlightingController({
+    this.source,
+    this.highlighter,
+    TextEditingValue? initialValue,
+  }) : super.fromValue(source?.value ?? initialValue) {
+    source?.addListener(_readSource);
+    addListener(_writeSource);
+  }
+
+  final TextEditingController? source;
+  TextSpan Function(String text, TextStyle style)? highlighter;
+
+  void _readSource() {
+    if (value != source!.value) value = source!.value;
+  }
+
+  void _writeSource() {
+    if (source != null && source!.value != value) source!.value = value;
+  }
+
+  @override
+  TextSpan buildTextSpan({
+    required BuildContext context,
+    TextStyle? style,
+    required bool withComposing,
+  }) {
+    final composing = withComposing &&
+        value.isComposingRangeValid &&
+        !value.composing.isCollapsed;
+    if (highlighter != null && !composing) {
+      final span = highlighter!(text, style ?? const TextStyle());
+      assert(span.toPlainText() == text,
+          'syntaxHighlighter must preserve the original text.');
+      return TextSpan(style: style, children: [span]);
+    }
+    return source?.buildTextSpan(
+            context: context, style: style, withComposing: withComposing) ??
+        super.buildTextSpan(
+            context: context, style: style, withComposing: withComposing);
+  }
+
+  @override
+  void dispose() {
+    source?.removeListener(_readSource);
+    removeListener(_writeSource);
+    super.dispose();
   }
 }

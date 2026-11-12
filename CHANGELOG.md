@@ -63,7 +63,12 @@ Init Project:
 
 - Updates on LoginScreen so its more customizable
 
-## VERSION: 0.0.6-r4
+## VERSION: 1.0.0
 
 - Lined Text Field Implemented
+- Changes on color picker dialog
+- Responsive layout function created. Adding automatic evaluation
 - Created Example
+- Changes on login screen
+- Custom Buttons created
+- Custom NavigationRail thats became a Drawer on minor screens

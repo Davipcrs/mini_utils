@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'components/cdev_custom_elevated_button.dart';
+
 /// Easy loginScreen for the app with customizable functions for handle userLogin, passwordChange and loginCancel
 /// Recomended usage inside a SizedBox
 Widget loginScreen({
@@ -91,8 +93,12 @@ Widget loginScreen({
                           color: foregroundColor,
                         ),
                         labelText: "Password",
-                        suffixIcon: IconButton(
-                          icon: Icon(
+                        suffixIcon: CdevCustomElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(48, 48),
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Icon(
                             isObscured
                                 ? Icons.visibility
                                 : Icons.visibility_off,
@@ -114,7 +120,7 @@ Widget loginScreen({
                       onCreateUser != null
                           ? Padding(
                               padding: const EdgeInsets.only(right: 12.0),
-                              child: TextButton(
+                              child: CdevCustomElevatedButton(
                                 onPressed: () {
                                   onCreateUser();
                                 },
@@ -126,7 +132,7 @@ Widget loginScreen({
                             )
                           : const SizedBox
                               .shrink(), // Create Button only if the function is defined
-                      TextButton(
+                      CdevCustomElevatedButton(
                         onPressed: () {
                           onChangePassword();
                         },
@@ -145,7 +151,7 @@ Widget loginScreen({
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 12.0),
-                          child: ElevatedButton(
+                          child: CdevCustomElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: WidgetStateColor.resolveWith(
                                   (states) => buttonBackgroundColor as Color),
@@ -159,7 +165,7 @@ Widget loginScreen({
                             ),
                           ),
                         ),
-                        ElevatedButton(
+                        CdevCustomElevatedButton(
                           style: ButtonStyle(
                             backgroundColor: WidgetStateColor.resolveWith(
                                 (states) => buttonBackgroundColor as Color),
